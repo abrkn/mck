@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "name": "mck",
+  "description": "A mocking library for node",
+  "keywords": [
+    "mock",
+    "test"
+  ],
+  "homepage": "https://github.com/abrkn/mck",
+  "author": "Andreas Brekken <a@abrkn.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abrkn/mck"
+  },
+  "bugs": {
+    "url": "http://github.com/abrkn/mck/issues"
+  },
+  "engines": {
+    "node": ">=0.6"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "expect.js": "~0.3.1",
+    "mocha": "~1.20.1"
+  }
+}
