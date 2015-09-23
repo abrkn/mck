@@ -4,7 +4,10 @@ module.exports = exports = function(target, name, fake, condition) {
     assert(target, 'target is null')
     var real = target[name]
     , wrapper = function() {
-        if (condition && !condition(arguments)) {
+        if (!wrapper.restore) {
+            return real.apply(this, arguments)
+        }
+        if (condition && !condition.apply(target, arguments)) {
             return real.apply(this, arguments)
         }
         wrapper.invokes++

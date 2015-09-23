@@ -41,6 +41,26 @@ describe('mock', function() {
 
 		thrice.restore();
 	})
+
+	it('should support stacking', function() {
+		var target = {
+			sum: function(a, b) {
+				return a + b;
+			}
+		}
+
+		var sumMock1 = mock(target, 'sum', function(a, b) { return 100 }, function(a, b) { return a + b < 100 });
+		var sumMock2 = mock(target, 'sum', function(a, b) { return 50 }, function(a, b) { return a + b < 50 });
+
+		expect(target.sum(100, 1)).to.be(101);
+		expect(target.sum(10, 10)).to.be(50);
+		expect(target.sum(25, 50)).to.be(100);
+		expect(target.sum(100, 100)).to.be(200);
+
+		sumMock1.restore();
+
+		expect(target.sum(25, 50)).to.be(75);
+	});
 })
 
 describe('restore', function() {
@@ -64,5 +84,4 @@ describe('once', function() {
 		expect(Math.sqrt(25)).to.be(1)
 		expect(Math.sqrt(25)).to.be(5)
 	})
-
 })
