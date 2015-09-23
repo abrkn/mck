@@ -19,6 +19,28 @@ describe('mock', function() {
 
 		log.restore()
 	})
+
+	it('should only increase invokes when condition is met', function() {
+		var thrice = mock(Math, 'sqrt', function(n) {
+			return n + 1;
+		}, function(n) {
+			return thrice.invokes < 3
+		});
+
+		expect(Math.sqrt(100)).to.be(101);
+		expect(Math.sqrt(25)).to.be(26);
+		expect(Math.sqrt(9)).to.be(10);
+
+		expect(thrice.invokes).to.be(3);
+
+		expect(Math.sqrt(100)).to.be(10);
+		expect(Math.sqrt(25)).to.be(5);
+		expect(Math.sqrt(9)).to.be(3);
+
+		expect(thrice.invokes).to.be(3);
+
+		thrice.restore();
+	})
 })
 
 describe('restore', function() {
@@ -42,4 +64,5 @@ describe('once', function() {
 		expect(Math.sqrt(25)).to.be(1)
 		expect(Math.sqrt(25)).to.be(5)
 	})
+
 })
